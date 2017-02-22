@@ -1,0 +1,90 @@
+package exo10_2;
+
+import java.util.TreeSet;
+
+import TextIO.TextIO;
+
+public class Exo10_2 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		boolean bool = true;
+		while (bool == true){
+		TreeSet<Integer> A = new TreeSet<Integer>();
+		TreeSet<Integer> B = new TreeSet<Integer>();
+		char operator;
+		
+		//read the first set
+		TextIO.skipBlanks();
+		if (TextIO.peek() != '[')
+	         throw new IllegalArgumentException("Expected '[' at start of set.");
+		TextIO.getAnyChar();
+		
+		while(TextIO.peek() != ']'){
+			
+			TextIO.skipBlanks();
+			if (TextIO.peek() != ',' && !(Character.isDigit(TextIO.peek()))){
+				System.out.println(TextIO.peek());
+				throw new IllegalArgumentException("Wrong character in the set.");
+			}
+			else{//integer or comma
+				
+				if (Character.isDigit(TextIO.peek())){//If this is a character, we put it in A. If not, this is a comma and we go to the next character.
+					A.add(new Integer(TextIO.getInt()));
+				}
+			}
+			TextIO.getAnyChar();
+		}
+		//the actual character is ']'
+		TextIO.getAnyChar();
+		TextIO.skipBlanks();
+		if (TextIO.peek() != '*' && TextIO.peek() != '+' && TextIO.peek() != '-'){
+			throw new IllegalArgumentException("Expected *, +, or  - after first set.");
+		}
+		operator = TextIO.getAnyChar();
+		
+		//read the second set
+		TextIO.skipBlanks();
+		if (TextIO.peek() != '[')
+	         throw new IllegalArgumentException("Expected '[' at start of set.");
+		TextIO.getAnyChar();
+		
+		while(TextIO.peek() != ']'){
+			
+			TextIO.skipBlanks();
+			if (TextIO.peek() != ',' || !(Character.isDigit(TextIO.peek()))){
+				throw new IllegalArgumentException("Wrong character in the set.lol");
+			}
+			else{//integer or comma
+				
+				if (Character.isDigit(TextIO.peek())){//If this is a character, we put it in A. If not, this is a comma and we go to the next character.
+					B.add(new Integer(TextIO.getInt()));
+				}
+			}
+			TextIO.getAnyChar();
+		}
+		
+		//print the answer
+		
+		if(operator == '*'){
+			System.out.println(A.retainAll(B));
+		}
+		else if (operator == '+'){
+			System.out.println(A.addAll(B));
+		}
+		else {
+			System.out.println(A.retainAll(B));
+		}
+		
+		/**
+		 * Ask the user if he wants to enter another line of input
+		 */
+		System.out.println("Again ?");
+		bool = TextIO.getlnBoolean();
+		}
+		
+		
+	}
+
+}
